@@ -19,8 +19,6 @@
             >
                 Add to cart
             </button>
-
-<!--            todo: remove from cart button, check for product id in cart to decide availability-->
             <button @click="removeFromCart"
                     :disabled="!inCart"
                     :class="{ disabledButton: !inCart, activeRemove: inCart }"
@@ -48,7 +46,7 @@
 
             }
         },
-        method: {
+        methods: {
           addToCart(){
               EventBus.$emit('add-to-cart', this.ID);
               this.addedNumber++;

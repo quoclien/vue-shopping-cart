@@ -6,48 +6,20 @@
         <Product :product="product"></Product>
       </li>
     </ul>
+    <h3 v-if="this.products.length === 0">No product available right now!</h3>
   </div>
 </template>
 
 <script>
 import Product from "@/components/Product";
-import iphone from '../assets/iphone11ProMax.png';
-import kindle from '../assets/amazonKindleOasis.png';
-import sony from '../assets/sonyAlphaA7.png';
 export default {
-  name: 'HelloWorld',
+  name: 'Catalog',
   components: {Product},
   props: {
-    msg: String
-  },
-  data: function () {
-    return{
-      products: [
-        {
-          ID: "s1",
-          image: kindle,
-          name: "Kindle Oasis",
-          brand: "Amazon",
-          details: ["Useful", "Durable", "Light-weight"],
-          quantity: 3
-        },
-        {
-          ID: "s2",
-          image: iphone,
-          name: "iPhone 11 Pro Max",
-          brand: "Apple",
-          details: ["Expensive", "Luxurious", "Apple's"],
-          quantity: 10
-        },
-        {
-          ID: "s3",
-          image: sony,
-          name: "Alpha A7 R III",
-          brand: "Sony",
-          details: ["Modern", "Functional", "Fast"],
-          quantity: 0
-        }
-      ]
+    msg: String,
+    products: {
+      type: Object,
+      required: false
     }
   }
 }
