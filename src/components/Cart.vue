@@ -45,7 +45,7 @@
         },
         computed: {
             total(){
-                return Object.keys(this.items).reduce((sum,key)=>sum+parseInt(this.items[key]||0),0);
+                return Object.keys(this.items).reduce((sum,key)=>sum+parseInt(this.items[key]||0),0).toString();
             }
         },
         mounted() {
@@ -53,22 +53,22 @@
                 if (Object.keys(this.items).includes(productID))
                 {
                     let value = this.items[productID];
-                    this.items[productID] = ++value;
+                    this.$set(this.items, productID, ++value);
                 }
                 else
                 {
-                    this.items[productID] = 1;
+                    this.$set(this.items, productID, 1);
                 }
             });
             EventBus.$on('remove-from-cart', productID => {
                 if (this.items[productID] > 1)
                 {
                     let value = this.items[productID];
-                    this.items[productID] = --value;
+                    this.$set(this.items, productID, --value);
                 }
                 else
                 {
-                    delete this.items[productID];
+                    this.$delete(this.items, productID);
                 }
             });
         }
