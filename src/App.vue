@@ -11,6 +11,7 @@
 import Catalog from './components/Catalog.vue'
 import NavbarHeader from "@/components/NavbarHeader";
 import Cart from "@/components/Cart";
+import EventBus from "@/shared/EventBus";
 import kindle from "@/assets/amazonKindleOasis.png";
 import iphone from "@/assets/iphone11ProMax.png";
 import sony from "@/assets/sonyAlphaA7.png";
@@ -54,6 +55,23 @@ export default {
                 }
             }
         }
+    },
+    mounted(){
+        EventBus.$on('add-to-cart', productID => {
+            let value = this.products[productID].quantity;
+            if (value > 0)
+            {
+                let object = this.products;
+                object[productID].quantity = --value;
+                this.$set(this.products, object);
+            }
+        });
+        EventBus.$on('remove-from-cart', productID => {
+            let value = this.products[productID].quantity;
+            let object = this.products;
+            object[productID].quantity = ++value;
+            this.$set(this.products, object);
+        });
     }
 }
 </script>

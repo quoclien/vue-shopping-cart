@@ -14,6 +14,12 @@
                         <div class="product-info">
                             <h2>{{ products[key].name }}</h2>
                             <p>Quantity: {{value}}</p>
+                            <button @click="removeFromCart(key)"
+                                    :disabled="!value"
+                                    :class="{ disabledButton: !value, activeRemove: value }"
+                            >
+                                Remove from cart
+                            </button>
                         </div>
                     </div>
                 </li>
@@ -41,7 +47,10 @@
         methods: {
           toggleCart(){
               this.isOpen = !this.isOpen;
-          }
+          },
+            removeFromCart(ID){
+              EventBus.$emit('remove-from-cart', ID);
+            }
         },
         computed: {
             total(){

@@ -19,12 +19,6 @@
             >
                 Add to cart
             </button>
-            <button @click="removeFromCart"
-                    :disabled="!inCart"
-                    :class="{ disabledButton: !inCart, activeRemove: inCart }"
-            >
-                Remove from cart
-            </button>
 
         </div>
     </div>
@@ -40,20 +34,10 @@
                 required: false
             }
         },
-        data: function () {
-            return{
-                addedNumber: 0
-            }
-        },
         methods: {
           addToCart(){
               EventBus.$emit('add-to-cart', this.ID);
-              this.addedNumber++;
-          },
-            removeFromCart(){
-              EventBus.$emit('remove-from-cart', this.ID);
-              this.addedNumber--;
-            }
+          }
         },
         computed: {
             image(){
@@ -66,14 +50,14 @@
                 return this.product.details;
             },
             inStock(){
-                return (this.product.quantity - this.addedNumber) > 0;
-            },
-            inCart(){
-                return this.addedNumber > 0;
+                console.log(this.product);
+                return this.product.quantity > 0;
             },
             name(){
                 return this.product.brand + "'s " + this.product.name;
             }
+        },
+        mount(){
         }
     }
 </script>
