@@ -1,11 +1,11 @@
 <template>
     <div class="cart-section">
-        <div class="cart" @click="toggleCart">
+        <div @click="toggleCart" class="cart">
             <p>Cart({{ number }})</p>
         </div>
         <div class="cart-detail" v-show="isOpen">
             <ul>
-                <li v-for="(value, key) in items" :key="key">
+                <li :key="key" v-for="(value, key) in items">
                     <div class="product">
                         <div class="product-image">
                             <img :src="products[key].image" alt="product image">
@@ -15,9 +15,9 @@
                             <h2>{{ products[key].name }}</h2>
                             <p>Quantity: {{value}}</p>
                             <p>Subtotal: ${{parseInt(value) * parseInt(products[key].price)}}.00</p>
-                            <button @click="removeFromCart(key)"
+                            <button :class="{ disabledButton: !value, activeRemove: value }"
                                     :disabled="!value"
-                                    :class="{ disabledButton: !value, activeRemove: value }"
+                                    @click="removeFromCart(key)"
                             >
                                 Remove from cart
                             </button>
@@ -28,10 +28,10 @@
             <p>Total: ${{total}}.00</p>
         </div>
 
-        <button @click="checkOut"
+        <button :class="{ disabledButton: !Object.keys(items).length, activeCheckOut: Object.keys(items).length }"
                 :disabled="!Object.keys(items).length"
+                @click="checkOut"
                 v-show="isOpen"
-                :class="{ disabledButton: !Object.keys(items).length, activeCheckOut: Object.keys(items).length }"
         >
             Checkout
         </button>
@@ -40,64 +40,56 @@
 
 <script>
     import EventBus from "@/shared/EventBus";
+
     export default {
         name: "Cart",
         props: {
-          products: {
-              type: Object,
-              required: false
-          }
+            products: {
+                type: Object,
+                required: false
+            }
         },
         data: function () {
-            return{
+            return {
                 items: {},
                 isOpen: false
             }
         },
         methods: {
-          toggleCart(){
-              this.isOpen = !this.isOpen;
-          },
-            removeFromCart(ID){
-              EventBus.$emit('remove-from-cart', ID);
+            toggleCart() {
+                this.isOpen = !this.isOpen;
             },
-            checkOut(){
-              EventBus.$emit('checkout', this.items);
-              for (let key in this.items)
-              {
-                  this.$delete(this.items, key);
-              }
+            removeFromCart(ID) {
+                EventBus.$emit('remove-from-cart', ID);
+            },
+            checkOut() {
+                for (let key in this.items) {
+                    this.$delete(this.items, key);
+                }
             }
         },
         computed: {
-            number(){
-                return Object.keys(this.items).reduce((sum,key)=>sum+parseInt(this.items[key]||0),0);
+            number() {
+                return Object.keys(this.items).reduce((sum, key) => sum + parseInt(this.items[key] || 0), 0);
             },
-            total()
-            {
-                return Object.keys(this.items).reduce((sum,key)=>sum+(parseInt(this.products[key].price) * parseInt(this.items[key])||0),0);
+            total() {
+                return Object.keys(this.items).reduce((sum, key) => sum + (parseInt(this.products[key].price) * parseInt(this.items[key]) || 0), 0);
             }
         },
         mounted() {
             EventBus.$on('add-to-cart', productID => {
-                if (Object.keys(this.items).includes(productID))
-                {
+                if (Object.keys(this.items).includes(productID)) {
                     let value = this.items[productID];
                     this.$set(this.items, productID, ++value);
-                }
-                else
-                {
+                } else {
                     this.$set(this.items, productID, 1);
                 }
             });
             EventBus.$on('remove-from-cart', productID => {
-                if (this.items[productID] > 1)
-                {
+                if (this.items[productID] > 1) {
                     let value = this.items[productID];
                     this.$set(this.items, productID, --value);
-                }
-                else
-                {
+                } else {
                     this.$delete(this.items, productID);
                 }
             });
@@ -106,42 +98,52 @@
 </script>
 
 <style scoped>
-ul{
-    list-style-type: none;
-    padding: 0;
-}
-img{
-    max-width: 100%;
-}
-.cart-section {
-    margin-right: 5px;
-    float: right;
-    border: 1px solid #d8d8d8;
-    padding: 5px 20px;
-}
-.product-image{
-    margin-top: 10px;
-    width: 200px;
-}
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-.product-info {
-    margin-top: 10px;
-}
-.activeRemove{
-    background-color: brown;
-    cursor: pointer;
-}
+    img {
+        max-width: 100%;
+    }
 
-.disabledButton {
-    background-color: #d8d8d8;
-}
-.activeCheckOut{
-    background-color: ghostwhite;
-    color: #282828;
-    cursor: pointer;
-    font-size: large;
-}
-    button{
+    .cart-section {
+        margin-right: 5px;
+        float: right;
+        border: 1px solid #d8d8d8;
+        padding: 5px 20px;
+    }
+
+    .cart {
+        cursor: pointer;
+    }
+
+    .product-image {
+        margin-top: 10px;
+        width: 200px;
+    }
+
+    .product-info {
+        margin-top: 10px;
+    }
+
+    .activeRemove {
+        background-color: brown;
+        cursor: pointer;
+    }
+
+    .disabledButton {
+        background-color: #d8d8d8;
+    }
+
+    .activeCheckOut {
+        background-color: ghostwhite;
+        color: #282828;
+        cursor: pointer;
+        font-size: large;
+    }
+
+    button {
         font-size: medium;
         border: 1px solid black;
         border-radius: 10%;

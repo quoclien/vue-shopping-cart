@@ -14,12 +14,12 @@
 
             <p>Most described in our reviews as:</p>
             <ul>
-                <li v-for="(detail, index) in details" :key="index">{{ detail }}</li>
+                <li :key="index" v-for="(detail, index) in details">{{ detail }}</li>
             </ul>
 
-            <button @click="addToCart"
+            <button :class="{ disabledButton: !inStock, activeAdd: inStock }"
                     :disabled="!inStock"
-                    :class="{ disabledButton: !inStock, activeAdd: inStock }"
+                    @click="addToCart"
             >
                 Add to cart
             </button>
@@ -30,6 +30,7 @@
 
 <script>
     import EventBus from "@/shared/EventBus";
+
     export default {
         name: "Product",
         props: {
@@ -39,27 +40,27 @@
             }
         },
         methods: {
-          addToCart(){
-              EventBus.$emit('add-to-cart', this.ID);
-          }
+            addToCart() {
+                EventBus.$emit('add-to-cart', this.ID);
+            }
         },
         computed: {
-            image(){
+            image() {
                 return this.product.image;
             },
-            ID(){
+            ID() {
                 return this.product.ID;
             },
-            details(){
+            details() {
                 return this.product.details;
             },
-            inStock(){
+            inStock() {
                 return this.product.quantity > 0;
             },
-            name(){
+            name() {
                 return this.product.brand + "'s " + this.product.name;
             },
-            price(){
+            price() {
                 return this.product.price;
             }
         }
@@ -73,7 +74,7 @@
         padding: 1rem;
     }
 
-    ul{
+    ul {
         list-style-type: none;
         padding: 0;
     }
@@ -89,7 +90,7 @@
         max-width: 700px;
     }
 
-    .product-image{
+    .product-image {
         margin-top: 10px;
         width: 50%;
     }
@@ -98,6 +99,7 @@
         margin-top: 10px;
         width: auto;
     }
+
     button {
         margin-top: 30px;
         border: none;
@@ -110,7 +112,7 @@
         border-radius: 10%;
     }
 
-    .activeAdd{
+    .activeAdd {
         background-color: #1E95EA;
         cursor: pointer;
     }
