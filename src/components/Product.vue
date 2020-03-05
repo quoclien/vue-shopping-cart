@@ -6,7 +6,10 @@
 
         <div class="product-info">
             <h2>{{ name }}</h2>
-            <p v-if="inStock">In Stock</p>
+            <div v-if="inStock">
+                <p>In Stock</p>
+                <p>Price: ${{price}}.00</p>
+            </div>
             <p v-else>Out of Stock</p>
 
             <ul>
@@ -54,6 +57,9 @@
             },
             name(){
                 return this.product.brand + "'s " + this.product.name;
+            },
+            price(){
+                return this.product.price;
             }
         }
     }

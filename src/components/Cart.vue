@@ -14,7 +14,7 @@
                         <div class="product-info">
                             <h2>{{ products[key].name }}</h2>
                             <p>Quantity: {{value}}</p>
-                            <p>Subtotal: {{parseInt(value) * parseInt(products[key].price)}}</p>
+                            <p>Subtotal: ${{parseInt(value) * parseInt(products[key].price)}}.00</p>
                             <button @click="removeFromCart(key)"
                                     :disabled="!value"
                                     :class="{ disabledButton: !value, activeRemove: value }"
@@ -25,7 +25,7 @@
                     </div>
                 </li>
             </ul>
-            <p>Total: {{total}}</p>
+            <p>Total: ${{total}}.00</p>
         </div>
     </div>
 </template>
