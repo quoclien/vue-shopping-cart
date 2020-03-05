@@ -1,7 +1,7 @@
 <template>
     <div class="cart-section">
         <div class="cart" @click="toggleCart">
-            <p>Cart({{ total }})</p>
+            <p>Cart({{ number }})</p>
         </div>
         <div class="cart-detail" v-show="isOpen">
             <ul>
@@ -14,6 +14,7 @@
                         <div class="product-info">
                             <h2>{{ products[key].name }}</h2>
                             <p>Quantity: {{value}}</p>
+                            <p>Subtotal: {{parseInt(value) * parseInt(products[key].price)}}</p>
                             <button @click="removeFromCart(key)"
                                     :disabled="!value"
                                     :class="{ disabledButton: !value, activeRemove: value }"
@@ -24,6 +25,7 @@
                     </div>
                 </li>
             </ul>
+            <p>Total: {{total}}</p>
         </div>
     </div>
 </template>
@@ -53,8 +55,12 @@
             }
         },
         computed: {
-            total(){
-                return Object.keys(this.items).reduce((sum,key)=>sum+parseInt(this.items[key]||0),0).toString();
+            number(){
+                return Object.keys(this.items).reduce((sum,key)=>sum+parseInt(this.items[key]||0),0);
+            },
+            total()
+            {
+                return Object.keys(this.items).reduce((sum,key)=>sum+(parseInt(this.products[key].price) * parseInt(this.items[key])||0),0);
             }
         },
         mounted() {
@@ -99,5 +105,13 @@
 .product-info {
     margin-top: 10px;
     width: 20%;
+}
+.activeRemove{
+    background-color: brown;
+    cursor: pointer;
+}
+
+.disabledButton {
+    background-color: #d8d8d8;
 }
 </style>

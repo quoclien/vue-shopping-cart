@@ -33,7 +33,8 @@ export default {
                     name: "Kindle Oasis",
                     brand: "Amazon",
                     details: ["Useful", "Durable", "Light-weight"],
-                    quantity: 3
+                    quantity: 3,
+                    price: 500
                     },
                 s2:
                 {
@@ -42,7 +43,8 @@ export default {
                     name: "iPhone 11 Pro Max",
                     brand: "Apple",
                     details: ["Expensive", "Luxurious", "Apple's"],
-                    quantity: 10
+                    quantity: 10,
+                    price: 1500
                 },
                 s3:
                 {
@@ -51,7 +53,8 @@ export default {
                     name: "Alpha A7 R III",
                     brand: "Sony",
                     details: ["Modern", "Functional", "Fast"],
-                    quantity: 0
+                    quantity: 0,
+                    price: 1000
                 }
             }
         }

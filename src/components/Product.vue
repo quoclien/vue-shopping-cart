@@ -50,14 +50,11 @@
                 return this.product.details;
             },
             inStock(){
-                console.log(this.product);
                 return this.product.quantity > 0;
             },
             name(){
                 return this.product.brand + "'s " + this.product.name;
             }
-        },
-        mount(){
         }
     }
 </script>
@@ -103,11 +100,6 @@
         font-size: 14px;
         margin-left: 15px;
         border-radius: 10%;
-    }
-
-    .activeRemove{
-        background-color: brown;
-        cursor: pointer;
     }
 
     .activeAdd{

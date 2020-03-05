@@ -2,7 +2,7 @@
   <div class="hello">
     <h2>{{ msg }}</h2>
     <ul>
-      <li v-for="product in products" :key="product.ID">
+      <li v-for="(product, ID) in products" :key="ID">
         <Product :product="product"></Product>
       </li>
     </ul>
