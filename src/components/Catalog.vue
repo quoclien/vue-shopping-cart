@@ -1,12 +1,11 @@
 <template>
-  <div class="hello">
-    <h2>{{ msg }}</h2>
+  <div class="shop">
     <ul>
       <li v-for="(product, ID) in products" :key="ID">
         <Product :product="product"></Product>
       </li>
     </ul>
-    <h3 v-if="this.products.length === 0">No product available right now!</h3>
+    <h2 v-if="this.products.length === 0">No product available right now!</h2>
   </div>
 </template>
 
@@ -32,7 +31,7 @@ h3 {
 }
 ul {
   list-style-type: none;
-  padding: 0;
+  padding-right: 250px;
 }
 li {
   margin: 0 10px;
@@ -40,4 +39,6 @@ li {
 a {
   color: #42b983;
 }
+  .welcome-message{
+  }
 </style>

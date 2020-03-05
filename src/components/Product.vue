@@ -12,6 +12,7 @@
             </div>
             <p v-else>Out of Stock</p>
 
+            <p>Most described in our reviews as:</p>
             <ul>
                 <li v-for="(detail, index) in details" :key="index">{{ detail }}</li>
             </ul>
@@ -73,7 +74,8 @@
     }
 
     ul{
-        text-align: start;
+        list-style-type: none;
+        padding: 0;
     }
 
     img {
@@ -84,7 +86,7 @@
     }
 
     .product-image {
-        width: 80%;
+        max-width: 700px;
     }
 
     .product-image{
@@ -94,7 +96,7 @@
 
     .product-info {
         margin-top: 10px;
-        width: 20%;
+        width: auto;
     }
     button {
         margin-top: 30px;

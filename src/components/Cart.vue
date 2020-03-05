@@ -106,20 +106,26 @@
 </script>
 
 <style scoped>
-.cart {
-    margin-right: 25px;
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+img{
+    max-width: 100%;
+}
+.cart-section {
+    margin-right: 5px;
     float: right;
     border: 1px solid #d8d8d8;
     padding: 5px 20px;
 }
 .product-image{
     margin-top: 10px;
-    width: 50%;
+    width: 200px;
 }
 
 .product-info {
     margin-top: 10px;
-    width: 20%;
 }
 .activeRemove{
     background-color: brown;
@@ -135,4 +141,9 @@
     cursor: pointer;
     font-size: large;
 }
+    button{
+        font-size: medium;
+        border: 1px solid black;
+        border-radius: 10%;
+    }
 </style>

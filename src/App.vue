@@ -3,7 +3,7 @@
 <!--    <img alt="Vue logo" src="./assets/logo.png">-->
     <NavbarHeader site="AmaVue"></NavbarHeader>
       <Cart :products="products"></Cart>
-    <Catalog msg="Check those awesome products below!" :products="this.products"/>
+    <Catalog :products="this.products"/>
   </div>
 </template>
 
