@@ -42,8 +42,7 @@
         },
         data: function () {
             return{
-                addedNumber: 0,
-
+                addedNumber: 0
             }
         },
         methods: {

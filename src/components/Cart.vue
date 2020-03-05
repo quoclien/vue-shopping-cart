@@ -1,9 +1,9 @@
 <template>
     <div class="cart-section">
-        <div class="cart">
+        <div class="cart" @click="toggleCart">
             <p>Cart({{ total }})</p>
         </div>
-        <div class="cart-detail" @click="toggleCart" v-show="isOpen">
+        <div class="cart-detail" v-show="isOpen">
             <ul>
                 <li v-for="(value, key) in items" :key="key">
                     <div class="product">
@@ -59,7 +59,6 @@
                 {
                     this.items[productID] = 1;
                 }
-                console.log(this.items);
             });
             EventBus.$on('remove-from-cart', productID => {
                 if (this.items[productID] > 1)
@@ -82,5 +81,14 @@
     float: right;
     border: 1px solid #d8d8d8;
     padding: 5px 20px;
+}
+.product-image{
+    margin-top: 10px;
+    width: 50%;
+}
+
+.product-info {
+    margin-top: 10px;
+    width: 20%;
 }
 </style>
