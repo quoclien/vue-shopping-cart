@@ -27,6 +27,14 @@
             </ul>
             <p>Total: ${{total}}.00</p>
         </div>
+
+        <button @click="checkOut"
+                :disabled="!Object.keys(items).length"
+                v-show="isOpen"
+                :class="{ disabledButton: !Object.keys(items).length, activeCheckOut: Object.keys(items).length }"
+        >
+            Checkout
+        </button>
     </div>
 </template>
 
@@ -52,6 +60,13 @@
           },
             removeFromCart(ID){
               EventBus.$emit('remove-from-cart', ID);
+            },
+            checkOut(){
+              EventBus.$emit('checkout', this.items);
+              for (let key in this.items)
+              {
+                  this.$delete(this.items, key);
+              }
             }
         },
         computed: {
@@ -113,5 +128,11 @@
 
 .disabledButton {
     background-color: #d8d8d8;
+}
+.activeCheckOut{
+    background-color: ghostwhite;
+    color: #282828;
+    cursor: pointer;
+    font-size: large;
 }
 </style>

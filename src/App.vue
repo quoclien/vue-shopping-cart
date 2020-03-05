@@ -75,6 +75,15 @@ export default {
             object[productID].quantity = ++value;
             this.$set(this.products, object);
         });
+        EventBus.$on('checkout', items => {
+            for (let id in items)
+            {
+                let value = this.products[id].quantity;
+                let object = this.products;
+                object[id].quantity = value - items[id];
+                this.$set(this.products, object);
+            }
+        })
     }
 }
 </script>
